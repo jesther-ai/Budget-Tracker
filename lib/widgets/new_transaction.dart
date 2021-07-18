@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../widgets/adaptive_button.dart';
+
 class NewTransaction extends StatefulWidget {
   final Function addTx;
   NewTransaction(this.addTx);
@@ -65,21 +67,9 @@ class _NewTransactionState extends State<NewTransaction> {
                   ],
                 ),
               ),
-              Platform.isIOS
-                  ? CupertinoButton(
-                      borderRadius: BorderRadius.circular(10),
-                      onPressed: _submitData,
-                      child: Text('Add Transaction'),
-                    )
-                  : TextButton(
-                      style: TextButton.styleFrom(
-                        primary: Colors.purple,
-                        backgroundColor:
-                            Theme.of(context).textTheme.button?.color,
-                      ),
-                      onPressed: _submitData,
-                      child: Text('Add Transaction'),
-                    )
+              AdaptiveCustomButton('Add Transaction', () {
+                _submitData();
+              })
             ],
           ),
         ),
