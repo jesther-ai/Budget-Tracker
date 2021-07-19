@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
+import '../widgets/transaction_item.dart';
 import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
@@ -34,47 +34,9 @@ class TransactionList extends StatelessWidget {
           )
         : ListView.builder(
             itemBuilder: (ctx, index) {
-              return Card(
-                elevation: 5,
-                margin: EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 5,
-                ),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: Padding(
-                      padding: const EdgeInsets.all(6),
-                      child: FittedBox(
-                          child: Text('\₱${_userTransactions[index].amount}')),
-                    ),
-                  ),
-                  title: Text(
-                    _userTransactions[index].title,
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  subtitle: Text(
-                      DateFormat.yMMMd().format(_userTransactions[index].date)),
-                  trailing: MediaQuery.of(context).size.width >= 460
-                      ? ElevatedButton.icon(
-                          onPressed: () {
-                            removeTransaction(_userTransactions[index].id);
-                          },
-                          icon: Icon(Icons.delete),
-                          label: Text('Delete'),
-                          style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all(
-                                Theme.of(context).errorColor),
-                          ),
-                        )
-                      : IconButton(
-                          icon: Icon(Icons.delete),
-                          color: Theme.of(context).errorColor,
-                          onPressed: () {
-                            removeTransaction(_userTransactions[index].id);
-                          },
-                        ),
-                ),
+              return TransactionItem(
+                _userTransactions[index],
+                removeTransaction,
               );
             },
             itemCount: _userTransactions.length,

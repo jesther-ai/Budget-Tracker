@@ -12,8 +12,9 @@ class AdaptiveCustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Platform.isIOS
         ? CupertinoButton(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(10),
+            alignment: Alignment.bottomRight,
+            color: Colors.purple,
+            borderRadius: BorderRadius.circular(8),
             onPressed: () {
               handler();
             },
