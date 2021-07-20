@@ -2,10 +2,10 @@
 
 My First Flutter Project. Basic Budget Tracker 
 
-Android
+Android<br>
 <img src="/assets/pic2.png" width="300" height="700"> <img src="/assets/pic3.png" width="300" height="700">
 
-Iphone
+Iphone<br>
 <img src="/assets/pic4.png" width="300" height="700"> <img src="/assets/pic6.png" width="300" height="700">
 ## Getting Started
 
