@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -67,20 +69,47 @@ class _NewTransactionState extends State<NewTransaction> {
   }
 
   void _presentDatePicker() {
-    showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2020),
-      lastDate: DateTime.now(),
-    ).then((pickedDate) {
-      if (pickedDate != null) {
-        setState(() {
-          _selectedDate = pickedDate;
-        });
-      } else {
-        return;
-      }
-    });
+    Platform.isIOS
+        ? showCupertinoModalPopup(
+            context: context,
+            builder: (_) => Container(
+                  height: 500,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 400,
+                        child: CupertinoDatePicker(
+                            initialDateTime: DateTime.now(),
+                            onDateTimeChanged: (val) {
+                              setState(() {
+                                _selectedDate = val;
+                              });
+                            }),
+                      ),
+
+                      // Close the modal
+                      CupertinoButton(
+                        child: Text('OK'),
+                        onPressed: () => Navigator.of(context).pop(),
+                      )
+                    ],
+                  ),
+                ))
+        : showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2020),
+            lastDate: DateTime.now(),
+          ).then((pickedDate) {
+            if (pickedDate != null) {
+              setState(() {
+                _selectedDate = pickedDate;
+              });
+            } else {
+              return;
+            }
+          });
   }
 
   void _submitData() {
